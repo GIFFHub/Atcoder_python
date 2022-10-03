@@ -8,8 +8,7 @@ flg = True
 while flg:
     X = M*tmp
     if X < 10**N:
-        if
-            ans = X
+        ans = X
         tmp += 1
     else:
         flg = False
