@@ -16,6 +16,7 @@ if __name__ == '__main__':
             if abs(k-i) > math.sqrt(M):
                 continue
 
+
             for l in range(1, N + 1):
                 if ((i - k) ** 2 + (j - l) ** 2) == M and table[k - 1][l - 1] == -1:
                     table[k - 1][l - 1] = num
