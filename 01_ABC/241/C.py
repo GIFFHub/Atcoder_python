@@ -1,10 +1,12 @@
+" 本プログラムにはバグがあります。解答はC_ans"
+
 def check(table: list) -> bool:
     for i in range(len(table)):
         # 先頭に.があり条件を満たすパターン
         if table[i][0:6].count("#") >= 4:
             return True
         else:
-            for j in range(1, max(1, len(table[0])-5)):
+            for j in range(1, max(1, len(table[0])-6)):
                 if table[i][j] == '#':
                     if table[i][j+1:j+6].count("#") >= 3:
                         return True
