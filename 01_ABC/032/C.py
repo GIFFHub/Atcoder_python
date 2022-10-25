@@ -1,3 +1,4 @@
+# 尺取り法
 if __name__ == '__main__':
     N, K = map(int, input().split())
     S = []
@@ -7,6 +8,7 @@ if __name__ == '__main__':
     S_set = set(S)
     if 0 in S_set:
         print(len(S))
+        
     else:
         R = [None]*N
         ans = 0
