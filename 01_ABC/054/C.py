@@ -1,5 +1,6 @@
 import itertools
 
+
 def judge(arr, Table):
     len_arr = len(arr)
     vertex_num = len(arr[0])
@@ -22,6 +23,7 @@ def judge(arr, Table):
 if __name__ == '__main__':
     N, M = map(int, input().split())
     Table = []
+    
     for _ in range(M):
         Table.append(list(map(int, input().split())))
     arr = list(itertools.permutations([X+1 for X in range(N)]))
