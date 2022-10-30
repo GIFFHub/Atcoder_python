@@ -1,5 +1,16 @@
 from fractions import Fraction
 
+def func(x, k):
+    '''
+    xのk乗を高速で返します
+    :param x:
+    :param k:
+    :return: x**k
+    '''
+
+
+
+
 if __name__ == '__main__':
     N, M, K = map(int, input().split())
     T = 998244353
