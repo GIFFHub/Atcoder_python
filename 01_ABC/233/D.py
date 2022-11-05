@@ -1,4 +1,4 @@
-
+from collections import defaultdict
 
 if __name__ == '__main__':
     N, K = map(int, input().split())
@@ -9,6 +9,17 @@ if __name__ == '__main__':
     for i in range(N):
         tmp += A[i]
         A_sum.append(tmp)
-    print(A_sum)
+
+    ans = 0
+
+    d = defaultdict(int)
+    d[0] = 1
+    for r in range(N):
+        ans += d[A_sum[r]-K]
+        d[A_sum[r]] += 1
+
+    print(ans)
+
+
 
 
