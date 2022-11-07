@@ -8,17 +8,28 @@ if __name__ == '__main__':
     # query_1
     # P <= A+k <= Q
     # P-A <= k <= Q-A
-    # R <= B+k <= S
-    # R-B <= k <= S-B
-    for k in range(P-A-1, Q-A+1, 1):
+
+    query_1_start = max(1-A, 1-B)
+    query_1_end = min(N-A, N-B)
+
+    query_1_start = max(query_1_start, P-A)
+    query_1_end = min(query_1_end, Q-A)
+
+    for k in range(query_1_start, query_1_end+1, 1):
         tmp_x = A+k
         tmp_y = B+k
 
         if P <= tmp_x <= Q and R <= tmp_y <= S:
             paint_point.add((tmp_x, tmp_y))
 
+    query_2_start = max(1-A, B-N)
+    query_2_end = min(N-A, B-1)
+
+    query_2_start = max(query_2_start, P-A)
+    query_2_end = min(query_2_end, Q-A)
+
     # query_2
-    for k in range(R-B-1, S-B+1, 1):
+    for k in range(query_2_start, query_2_end+1, 1):
         tmp_x = A+k
         tmp_y = B-k
 
