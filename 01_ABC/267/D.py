@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
 
     for i in range(1, M):
-        max_tmp = -2 * (10 ** 5) - 1
+        max_tmp = float('-inf')
         for j in range(i, N):
             dp[i][j] = max(max_tmp, dp[i-1][j-1]+(i+1)*A[j])
             max_tmp = dp[i][j]
