@@ -6,6 +6,7 @@ if __name__ == '__main__':
         S.append(int(input()))
 
 
+
     S_set = set(S)
     if 0 in S_set:
         print(len(S))
