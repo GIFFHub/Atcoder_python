@@ -9,12 +9,12 @@ def cal_vector(pos_i, pos_j):
     while True:
         tmp = math.gcd(dx, dy)
         if tmp != 1:
-            dx /= tmp
-            dy /= tmp
+            dx //= tmp
+            dy //= tmp
         else:
             break
-    return (dx, dy)
-
+    vec = (dx, dy)
+    return vec
 
 
 if __name__ == '__main__':
@@ -26,9 +26,13 @@ if __name__ == '__main__':
         X.append(x)
         Y.append(y)
 
-    '''
-    考察
-    ・全町から他の町までのベクトルを全列挙して
-    ・方向が同じ重複を削除すれば答えがでるが、TLE？
-    ・N＝500の場合、499通りのベクトルが500個
-    '''
+    vecs = set()
+    for i in range(N):
+        for j in range(N):
+            if i == j:
+                continue
+            town_i = [X[i], Y[i]]
+            town_j = [X[j], Y[j]]
+            vecs.add(cal_vector(town_i, town_j))
+
+    print(len(vecs))
