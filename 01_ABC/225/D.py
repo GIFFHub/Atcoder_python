@@ -1,4 +1,29 @@
+import sys
+sys.setrecursionlimit(10000000)
+from collections import deque
+
 def checkfront(x):
+    if x not in d_front:
+        return x
+
+    if d_front[x] is None:
+        return x
+
+    return checkfront(d_front[x])
+
+
+def setans(x):
+    global ans
+    if x not in d_back:
+        ans.append(x)
+        return
+
+    if d_back[x] is None:
+        ans.append(x)
+        return
+
+    ans.append(x)
+    return setans(d_back[x])
 
 
 if __name__ == '__main__':
@@ -17,6 +42,9 @@ if __name__ == '__main__':
             d_front[query[2]] = None
 
         elif query[0] == 3:
-            while True:
-                d_front[query[1]]
+            ans = deque()
+            front = checkfront(query[1])
+            setans(front)
+            ans.appendleft(len(ans))
+            print(*ans)
 
