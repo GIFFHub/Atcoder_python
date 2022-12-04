@@ -25,24 +25,21 @@ if __name__ == '__main__':
     for a in prime:
         d[a] += 1
 
-    print(prime)
-    print(d)
     ans = []
     for x, y in d.items():
+        cnt = 0
         t = x
         s = y
-        cnt = 1
         while True:
-            if t % s**y == 0:
-                ans.append(cnt)
+            cnt += prime_factorize(t).count(x)
+            if cnt >= y:
+                ans.append(t)
                 break
             else:
-                t *= x
-                cnt += 1
-
-
-
-        ans.append(x*y)
+                t += x
+    #print(d)
+    #print(ans)
+    print(max(ans))
 
 
 
