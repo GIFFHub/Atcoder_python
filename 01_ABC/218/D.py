@@ -1,19 +1,13 @@
 import bisect
 
 def getpos(p):
-  pos1 = p[0]
-  pos2 = p[1]
 
-  x_pos1 = X[pos1]
-  y_pos1 = Y[pos1]
+    pos1 = p[0]
+    pos2 = p[1]
+    pos3 = (X[pos1], Y[pos2])
+    pos4 = (X[pos2], Y[pos1])
 
-  x_pos2 = X[pos2]
-  y_pos2 = Y[pos2]
-
-  pos3 = (X[pos1], Y[pos2])
-  pos4 = (X[pos2], Y[pos1])
-
-  return pos3, pos4
+    return pos3, pos4
 
 
 
