@@ -1,51 +1,56 @@
+import bisect
 
+def getpos(p):
+  pos1 = p[0]
+  pos2 = p[1]
 
-if __name__ == '__main__':
-    N = int(input())
-    X = []
-    Y = []
-    d_x = dict()
-    d_y = dict()
-    T_x = [[] for _ in range(N)]
-    T_y = [[] for _ in range(N)]
+  x_pos1 = X[pos1]
+  y_pos1 = Y[pos1]
 
-    for i in range(N):
-        x, y = map(int, input().split())
-        X.append(x)
-        Y.append(y)
+  x_pos2 = X[pos2]
+  y_pos2 = Y[pos2]
 
-        if x in d_x:
-            for d in d_x[x]:
-                T_x[d].append(i)
-                T_x[i].append(d)
-            d_x[x].append(i)
-        else:
-            d_x[x] = [i]
+  pos3 = (X[pos1], Y[pos2])
+  pos4 = (X[pos2], Y[pos1])
 
-        if y in d_y:
-            for d in d_y[y]:
-                T_y[d].append(i)
-                T_y[i].append(d)
-            d_y[y].append(i)
-
-        else:
-            d_y[y] = [i]
+  return pos3, pos4
 
 
 
-    '''
-    ・長方形の条件
-    　・底辺を形成する2点のYが同じ
-    　・右辺を形成する2点のXが同じ
-    　・左辺を形成する2点のXが同じ
-    　・上辺を形成する2点のYが同じ
-    '''
+N = int(input())
+X = []
+Y = []
+for i in range(N):
+  x, y = map(int, input().split())
+  X.append(x)
+  Y.append(y)
 
-    print(d_x)
-    print(d_y)
-    print(T_x)
-    print(T_y)
+pos = []
+for i in range(N):
+  pos.append((X[i], Y[i]))
 
-    for tx1 in T_x:
-        for tx2 in tx1:
+#pos.sort(key=lambda x:x[1])
+#pos.sort(key=lambda x:x[0])
+pos = set(pos)
 
+
+# 2点（右上、左下）の組み合わせを全探索
+T = []
+for i in range(N):
+  for j in range(i+1, N):
+    if X[i] != X[j] and Y[i] != Y[j]:
+      T.append((i, j))
+
+
+ans = 0
+for t in T:
+  target_pos = getpos(t)
+  pos3 = target_pos[0]
+  pos4 = target_pos[1]
+  if pos3 in pos:
+    if pos4 in pos:
+      ans += 1
+
+ans //= 2
+
+print(ans)
