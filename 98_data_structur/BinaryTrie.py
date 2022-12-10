@@ -6,19 +6,6 @@ class BinaryTrie:
         self.id = 0
         self.bitlen = bitlen
 
-    def size(self):
-        return self.cnt[0]
-
-    # xの個数
-    def count(self, x):
-        pt = 0
-        for i in range(self.bitlen - 1, -1, -1):
-            y = x >> i & 1
-            if self.nodes[2 * pt + y] == -1:
-                return 0
-            pt = self.nodes[2 * pt + y]
-        return self.cnt[pt]
-
     # xの挿入
     def insert(self, x):
         pt = 0
@@ -31,21 +18,8 @@ class BinaryTrie:
             pt = self.nodes[2 * pt + y]
         self.cnt[pt] += 1
 
-    # xの削除
-    # xが存在しないときは何もしない
-    def erase(self, x):
-        if self.count(x) == 0:
-            return
-        pt = 0
-        for i in range(self.bitlen - 1, -1, -1):
-            y = x >> i & 1
-            self.cnt[pt] -= 1
-            pt = self.nodes[2 * pt + y]
-        self.cnt[pt] -= 1
-
-    # 昇順x番目の値(1-indexed)
+    # 昇順x番目の値
     def kth_elm(self, x):
-        assert 1 <= x <= self.size()
         pt, ans = 0, 0
         for i in range(self.bitlen - 1, -1, -1):
             ans <<= 1
@@ -61,8 +35,7 @@ class BinaryTrie:
                 ans += 1
         return ans
 
-    # x以上の最小要素が昇順何番目か(1-indexed)
-    # x以上の要素がない時はsize+1を返す
+    # x以上の最小要素が昇順何番目か
     def lower_bound(self, x):
         pt, ans = 0, 1
         for i in range(self.bitlen - 1, -1, -1):
@@ -71,20 +44,3 @@ class BinaryTrie:
                 ans += self.cnt[self.nodes[2 * pt]]
             pt = self.nodes[2 * pt + (x >> i & 1)]
         return ans
-
-
-bt = BinaryTrie()
-L, Q = map(int, input().split())
-bt.insert(0)
-bt.insert(L)
-
-for _ in range(Q):
-    c, x = map(int, input().split())
-    if c == 1:
-        bt.insert(x)
-    else:
-        p = bt.lower_bound(x)
-        print(bt.kth_elm(p) - bt.kth_elm(p - 1))
-
-
-
