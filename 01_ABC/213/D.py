@@ -32,11 +32,10 @@ if __name__ == '__main__':
         B.append(b)
         T[a-1].append(b-1)
         T[b-1].append(a-1)
-
-    for i in range(N-1):
+    for i in range(N):
         T[i].sort()
 
-    city = [True]*N # True: 行ったことない
+    city = [True] * N # True: 行ったことない
     ans = []
     visit(0, 0)
     print(*ans)
