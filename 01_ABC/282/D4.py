@@ -73,3 +73,4 @@ if __name__ == '__main__':
                     ans -= len(edges[point])
     print(ans//2)
 
+
