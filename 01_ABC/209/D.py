@@ -5,6 +5,7 @@ class Node(object):
     def __init__(self):
         self.parent = -1
         self.children = []
+        self.depth = 0
 
 
 if __name__ == '__main__':
@@ -21,7 +22,6 @@ if __name__ == '__main__':
         else:
             edges[b] = [a]
 
-    print(edges)
 
     #dfs
 
@@ -37,17 +37,23 @@ if __name__ == '__main__':
     while len(dfs_deque) > 0:
         current_point = dfs_deque.popleft()
         next_points = edges[current_point]
-        tree[current_point].children = next_points.copy()
         for next_point in next_points:
             if next_point in dist:
                 pass
             else:
                 tree[next_point] = Node()
+                tree[current_point].children.append(next_point)
                 tree[next_point].parent = current_point
+                tree[next_point].depth = tree[current_point].depth+1
                 dfs_deque.append(next_point)
                 dist[next_point] = dist[current_point]+1
 
-    print(tree)
+    for _ in range(Q):
+        c, d = map(int, input().split())
+        if tree[c].depth % 2 == tree[d].depth % 2:
+            print('Town')
+        else:
+            print('Road')
 
 
 
