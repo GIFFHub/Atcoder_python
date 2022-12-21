@@ -26,9 +26,11 @@ if __name__ == '__main__':
     
     よってf(s,t,k+1) = min(f(s,t,k), f(s,k+1,k)+f(k+1,t,k))
     
-    あらかじめ求めておくのは以下
-    f(1,*,1)
-    f(*,1,1)    
+    あらかじめ求められるのは
+    f(1,*,*)
+    
+    
+    
     '''
     ans = 0
     f = [[[0 for _ in range(N)] for _ in range(N)] for _ in range(N)]
