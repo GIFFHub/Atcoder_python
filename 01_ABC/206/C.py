@@ -4,8 +4,6 @@ if __name__ == '__main__':
     N = int(input())
     A = list(map(int, input().split()))
 
-    A.sort()
-
     d = defaultdict(int)
     for a in A:
         d[a] += 1
