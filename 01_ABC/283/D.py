@@ -9,7 +9,7 @@ if __name__ == '__main__':
     for i in range(len(S)):
         if S[i] == '(':
             box.append(tmp)
-            tmp = []
+            tmp = deque()
             flg = 1
         elif S[i] == ')':
             if flg == 1:
@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
             for ball in balls:
                 s.remove(ball)
-            tmp = []
+            tmp = deque()
             flg = 2
 
         else:
