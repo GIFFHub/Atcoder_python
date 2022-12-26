@@ -386,29 +386,3 @@ class AVLTree:
     def __delitem__(self, key): return self.delete(key)
     def __bool__(self): return self.root is not None
     def __len__(self): return self.root.size if self.root is not None else 0
-
-
-if __name__ == '__main__':
-    N, K = map(int, input().split())
-    A = []
-    for _ in range(N):
-        A.append(list(map(int, input().split())))
-
-    ans = 10**9+1
-    avl = AVLTree()
-
-    for i in range(N-K+1):
-        for j in range(N-K+1):
-            lake = []
-            for ki in range(K):
-                for kj in range(K):
-                    lake.append(A[i+ki][j+kj])
-            lake.sort(reverse=True)
-            center = lake[len(lake)//2]
-            ans = min(ans, center)
-
-    print(ans)
-
-
-
-
