@@ -17,10 +17,10 @@ if __name__ == '__main__':
 
     for i in range(H-1, -1, -1):
         for j in range(W-1, -1, -1):
-
+            if i == H - 1 and j == W - 1:
+                continue
             if (i+j) % 2 == 0:
-                if i == H - 1 and j == W - 1:
-                    continue
+
                 if i == H - 1:
                     opt[i][j] = opt[i][j+1] + A[i][j+1]
                     continue
@@ -30,8 +30,6 @@ if __name__ == '__main__':
                 opt[i][j] = max(opt[i+1][j] + A[i+1][j], opt[i][j+1] + A[i][j+1])
 
             else:
-                if i == H - 1 and j == W - 1:
-                    continue
                 if i == H - 1:
                     opt[i][j] = opt[i][j+1] - A[i][j+1]
                     continue
