@@ -1,34 +1,45 @@
+import sys
 
-def shift(t):
-    t = str(t)
-    if t[-1] != 0:
-        return int(t[-1]+t[:-1])
+sys.setrecursionlimit(50000000)
+
+def shift(T):
+    T = str(T)
+    if len(T) == 1:
+        return [int(T)]
     else:
-        return t
+        tmp = []
+        tmp.append(int(T))
+        for _ in range(len(T)-1):
+            T = T[1:]+T[0]
+            if T[0] != '0':
+                tmp.append(int(T))
+        return tmp
+
+
+def check(table, cnt):
+    global ans
+    tmp = 0
+    if ans >= cnt:
+        for t in table:
+            if t == 1:
+                ans = min(ans, cnt+tmp)
+            else:
+                if t % a == 0:
+                    t //= a
+                    check(shift(t), cnt+tmp+1)
+            tmp += 1
 
 
 if __name__ == '__main__':
-    a, N = map(int, input().split())
-    x = 1
-
-    # Nをシフトして最小に
-    # Nを半分に
     s = set()
-    s.add(N)
-    cnt = 0
-    while True:
-        cnt += 1
-        if N == 1:
-            print(cnt)
-        if N % a == 0:
-            N //= a
-        else:
-            N = shift(N)
-            if N in s:
-                print(-1)
-                break
-            else:
-                s.add(N)
+    a, N = map(int, input().split())
+    ans = 10**6+1
+    check(shift(N), 0)
+    if ans == 10**6+1:
+        print(-1)
+    else:
+        print(ans)
+
 
 
 
