@@ -44,3 +44,5 @@ class BinaryTrie:
                 ans += self.cnt[self.nodes[2 * pt]]
             pt = self.nodes[2 * pt + (x >> i & 1)]
         return ans
+
+
