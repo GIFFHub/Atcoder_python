@@ -274,13 +274,11 @@ class SortedSet(Generic[T]):
 if __name__ == '__main__':
     N, K = map(int, input().split())
     P = list(map(int, input().split()))
-    ans = [-1]*N
+    ans = dict()
     M_P = max(P)
     field = SortedSet()
-    d = dict()
-    cnt = defaultdict(int)
-
-    for p in P:
+    uf = UnionFind(N)
+    for i, p in enumerate(P):
         """
         ① fieldのp以上の値を探す
         ② ①で探した値のうち、最小のものを探す
@@ -289,25 +287,22 @@ if __name__ == '__main__':
         ⑤ 山札の数がKである場合、消去する
         ⑥ 消去ターンを各山札の値に記録する
         """
-        if field.gt(p) is not None:
-            field.discard(field.gt(p))
+        dis = field.gt(p)
+        if dis is not None:
+            field.discard(dis)
+            field.add(p)
+            uf.unite(p, dis)
+        else:
             field.add(p)
 
+        if uf.size(p) == K:
+            ans[uf.find(p)] = i+1
+            field.discard(p)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for card in range(1, N+1):
+        tmp = uf.find(card)
+        if tmp in ans:
+            print(ans[tmp])
+        else:
+            print(-1)
 
