@@ -1,3 +1,5 @@
+# https://amateur-engineer-blog.com/union-find/
+
 class UnionFind():
     """
     Union Find木クラス
