@@ -15,20 +15,21 @@ if __name__ == '__main__':
         else:
             d[v] = deque([u])
 
-    past = [0] * (N+1)
+    past = set()
     ans = 0
     dq = deque()
     for i in range(1, N+1):
-        if not past[i]:
+        if i not in past:
             ans += 1
             dq.append(i)
             while len(dq) > 0:
                 p = dq.popleft()
-                past[p] = 1
+                past.add(p)
                 if p in d:
                     for t in d[p]:
-                        if not past[t]:
+                        if t not in past:
                             dq.append(t)
+                            #past.add(t)
 
     print(ans)
 
