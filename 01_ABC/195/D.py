@@ -1,13 +1,12 @@
-# https://github.com/tatyam-prime/SortedSet
-
+# https://github.com/tatyam-prime/SortedSet/blob/main/SortedMultiset.py
 import math
-from bisect import bisect_left, bisect_right
+from bisect import bisect_left, bisect_right, insort
 from typing import Generic, Iterable, Iterator, TypeVar, Union, List
 
 T = TypeVar('T')
 
 
-class SortedSet(Generic[T]):
+class SortedMultiset(Generic[T]):
     BUCKET_RATIO = 50
     REBUILD_RATIO = 170
 
@@ -19,10 +18,10 @@ class SortedSet(Generic[T]):
         self.a = [a[size * i // bucket_size: size * (i + 1) // bucket_size] for i in range(bucket_size)]
 
     def __init__(self, a: Iterable[T] = []) -> None:
-        "Make a new SortedSet from iterable. / O(N) if sorted and unique / O(N log N)"
+        "Make a new SortedMultiset from iterable. / O(N) if sorted / O(N log N)"
         a = list(a)
-        if not all(a[i] < a[i + 1] for i in range(len(a) - 1)):
-            a = sorted(set(a))
+        if not all(a[i] <= a[i + 1] for i in range(len(a) - 1)):
+            a = sorted(a)
         self._build(a)
 
     def __iter__(self) -> Iterator[T]:
@@ -37,7 +36,7 @@ class SortedSet(Generic[T]):
         return self.size
 
     def __repr__(self) -> str:
-        return "SortedSet" + str(self.a)
+        return "SortedMultiset" + str(self.a)
 
     def __str__(self) -> str:
         s = str(list(self))
@@ -55,20 +54,21 @@ class SortedSet(Generic[T]):
         i = bisect_left(a, x)
         return i != len(a) and a[i] == x
 
-    def add(self, x: T) -> bool:
-        "Add an element and return True if added. / O(√N)"
+    def count(self, x: T) -> int:
+        "Count the number of x."
+        return self.index_right(x) - self.index(x)
+
+    def add(self, x: T) -> None:
+        "Add an element. / O(√N)"
         if self.size == 0:
             self.a = [[x]]
             self.size = 1
-            return True
+            return
         a = self._find_bucket(x)
-        i = bisect_left(a, x)
-        if i != len(a) and a[i] == x: return False
-        a.insert(i, x)
+        insort(a, x)
         self.size += 1
         if len(a) > len(self.a) * self.REBUILD_RATIO:
             self._build()
-        return True
 
     def discard(self, x: T) -> bool:
         "Remove an element and return True if removed. / O(√N)"
@@ -134,6 +134,13 @@ class SortedSet(Generic[T]):
 
 
 if __name__ == '__main__':
+
+    '''
+    ・単純に価値が大きい荷物から順に、ギリギリ入る箱に入れていく
+    ・使える箱は1~L-1, R+1~Mの箱
+    ・使える箱をSortedMultisetに入れて、対象の荷物の大きさ以上かつ最小の箱を選び、消していく
+    '''
+
     N, M, Q = map(int, input().split())
     loads = []
     for _ in range(N):
@@ -145,26 +152,18 @@ if __name__ == '__main__':
     for _ in range(Q):
         l, r = map(int, input().split())
 
-        '''
-        ・価値が大きい荷物から順に、ギリギリ入る箱に入れていく
-        ・使える箱は1~L-1, R+1~Mの箱
-        '''
-
         # 荷物を価値順に並び替え（降順）
         loads.sort(key=lambda x: x[1], reverse=True)
 
         # 使える箱をSortedSetに格納
-        use_box = SortedSet(X[:l]+X[r:])
+        use_box = SortedMultiset(X[:l-1]+X[r:])
 
         # 各荷物について
+        ans = 0
         for load in loads:
+            target_box = use_box.ge(load[0])
+            if target_box is not None:
+                ans += load[1]
+                use_box.discard(target_box)
 
-
-
-
-
-
-
-
-
-
+        print(ans)
