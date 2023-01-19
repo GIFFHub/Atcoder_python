@@ -5,11 +5,10 @@ if __name__ == '__main__':
     for _ in range(N):
         S.append(int(input()))
 
-
-
     S_set = set(S)
     if 0 in S_set:
         print(len(S))
+        
         
     else:
         R = [None]*N
