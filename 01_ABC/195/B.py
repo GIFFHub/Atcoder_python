@@ -21,7 +21,6 @@ if __name__ == '__main__':
         print('UNSATISFIABLE')
         exit()
     else:
-
         max_ans = num_A
 
     num_B = W // B
