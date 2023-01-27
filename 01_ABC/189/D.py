@@ -1,39 +1,35 @@
-def count(cnt, tobe):
+import sys
+sys.setrecursionlimit(50000000)
+
+
+def count(cnt, tobe, ptn):
     global ans
     if cnt == N:
-        ans += 1
+        ans += ptn
         return
     # 次をTrueにしたい
     if tobe:
-        # 現状Trueパターン
         if S[cnt] == 'AND':
             # True-True
-            count(cnt+1, True)
+            count(cnt+1, True, ptn)
         else:
+            # True-True
             # True-False
             # False-True
-            count(cnt+1, True)
-            count(cnt+1, False)
-        # 現状Falseパターン
-        if S[cnt] == 'AND':
-            pass
-        else:
-            # True-False
-            # False-True
-            count(cnt+1, True)
+            count(cnt+1, True, ptn*2)
+            count(cnt+1, False, ptn)
+
     # 次をFalseにしたい
     else:
-        # 現状Trueパターン
         if S[cnt] == 'AND':
-            count(cnt+1, False)
+            # True-False
+            # False-False
+            # False-True
+            count(cnt+1, False, ptn*2)
+            count(cnt+1, True, ptn)
         else:
-            pass
-        # 現状Falseパターン
-        if S[cnt] == 'AND':
-            count(cnt+1, True)
-            count(cnt+1, False)
-        else:
-            count(cnt+1, False)
+            # False-False
+            count(cnt+1, False, ptn)
     return
 
 
@@ -43,8 +39,8 @@ if __name__ == '__main__':
     ans = 0
     for _ in range(N):
         S.append(input())
-
-    count(0, True)
+    S.reverse()
+    count(0, True, 1)
 
     print(ans)
 
