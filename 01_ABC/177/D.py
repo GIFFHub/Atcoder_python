@@ -1,5 +1,4 @@
 # https://amateur-engineer-blog.com/union-find/
-
 from collections import defaultdict
 
 
@@ -143,3 +142,19 @@ class UnionFind():
         for member in range(self.n):
             group_members[self.find(member)].append(member)
         return group_members
+
+
+if __name__ == '__main__':
+    N, M = map(int, input().split())
+    uf = UnionFind(N)
+    for _ in range(M):
+        a, b = map(int, input().split())
+        uf.unite(a-1, b-1)
+
+    groups = uf.group_members()
+    ans = 0
+    for g in groups.values():
+        ans = max(ans, len(g))
+
+    print(ans)
+
