@@ -1,46 +1,39 @@
-
+from collections import deque
 
 if __name__ == '__main__':
     N = int(input())
     C = input()
     T = []
-    '''
-    以下二択
-    　pattern 1 : 左側に白（False）が存在する赤（True)を全て左に持っていく
-    　pattern 2 : 右側に赤（True）が存在する白（False）を全て赤に変える
-    '''
-    if len(C) == 1:
-        ans = 0
-    elif len(C) == 2:
-        if C == 'WR':
-            ans = 1
+
+    R_index = deque()
+    W_index = deque()
+    for i, c in enumerate(C):
+        if c == 'R':
+            R_index.append(i)
         else:
-            ans = 0
+            W_index.append(i)
+
+    len_R = len(R_index)
+    len_W = len(W_index)
+    ans = 0
+    if len_R == 0 or len_W == 0:
+        ans = 0
     else:
-        for c in C:
-            if c == 'R':
-                T.append(True)
+        while True:
+            target_W = W_index.popleft()
+            target_R = R_index.pop()
+            if target_W < target_R:
+                ans += 1
             else:
-                T.append(False)
+                break
+            if len(W_index) == 0 or len(R_index) == 0:
+                break
 
-        Fs = []
-        tmp = 0
-        for t in T:
-            if not t:
-                tmp += 1
-            else:
-                Fs.append(tmp)
-
-        Ts = []
-        T.reverse()
-        tmp = 0
-        for t in T:
-            if t:
-                tmp += 1
-            else:
-                Ts.append(tmp)
-
-        ans = min(Ts[-2], Fs[-2])
     print(ans)
+
+
+
+
+
 
 
