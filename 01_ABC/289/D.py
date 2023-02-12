@@ -10,8 +10,6 @@ if __name__ == '__main__':
     s = set()
     for b in B:
         s.add(b)
-    if X in s:
-        s.remove(X)
 
 
     '''
@@ -22,11 +20,10 @@ if __name__ == '__main__':
     dp[0] = True
 
     for i in range(X):
-        if dp[i]:
+        if dp[i] and i not in s:
             for a in A:
                 if i+a <= X:
-                    if i+a not in s:
-                        dp[i+a] = True
+                    dp[i+a] = True
 
     if dp[X]:
         print('Yes')
