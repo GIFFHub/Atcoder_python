@@ -14,7 +14,7 @@ if __name__ == '__main__':
             if X-bias not in P_set:
                 ans = X-bias
                 break
-            elif X+bias not in P_set:
+            elif X+bias not in P_set:d
                 ans = X+bias
                 break
             else:
