@@ -1,7 +1,9 @@
 
-import math
 
 def power(a, b, m):
+    '''
+    (a**b) % m を高速で返す
+    '''
     p = a
     answer = 1
     for i in range(30):
@@ -14,16 +16,3 @@ def power(a, b, m):
             answer = (answer*p) % m
         p = (p*p) % m
     return answer
-
-
-if __name__ == '__main__':
-    a, b = map(int, input().split())
-    T = 1000000007
-    ans = power(a, b, T)
-
-    print(ans)
-
-
-
-
-
