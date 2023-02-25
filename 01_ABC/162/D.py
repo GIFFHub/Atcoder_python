@@ -6,20 +6,18 @@ def check(A, B, C):
     for first_index in range(0, len(A)):
         second_start_index = bisect.bisect(B, A[first_index])
         if second_start_index >= len(B):
-            continue
+            break
         for second_index in range(second_start_index, len(B)):
             third_start_index = bisect.bisect(C, B[second_index])
             if third_start_index >= len(C):
-                continue
+                break
             ans += len(C) - third_start_index
+
             target = B[second_index] + (B[second_index]-A[first_index])
-            if C[0] <= target <= C[-1]:
-                ans -= 1
-            '''
-            for third_index in range(third_start_index, len(C)):
-                if (A[first_index]+C[third_index])//2 != B[second_index]:
-                    ans += 1
-            '''
+            target_index = bisect.bisect_left(C, target)
+            if third_start_index <= target_index < len(C):
+                if C[target_index] == target:
+                    ans -= 1
     return
 
 
