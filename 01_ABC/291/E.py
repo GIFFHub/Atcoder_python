@@ -1,24 +1,27 @@
 
 from collections import deque
+from collections import defaultdict
 import sys
 sys.setrecursionlimit(50000000)
+#import pypyjit
+#pypyjit.set_param('max_unroll_recursion=-1')
 
 
-def check(current, cnt):
+def check(current):
     global ans
-    global visit
-    visit[current-1] = True
+    global d
+    nxt_pos = 0
     # 次の行き先がある場合
     if current in nxts:
         for nxt in nxts[current]:
-            if visit[nxt-1]:
-                continue
-            ans.append(nxt)
-            check(nxt, cnt+1)
-            visit[nxt-1] = False
-
+            d[nxt] -= 1
+            if d[nxt] == 0:
+                nxt_pos = nxt
+    if not nxt_pos == 0:
+        ans.append(nxt_pos)
+        check(nxt_pos)
     else:
-        if cnt == N:
+        if len(ans) == N:
             T = [0]*N
             for i in range(N):
                 T[ans[i]-1] = i+1
@@ -26,39 +29,44 @@ def check(current, cnt):
             print(*T)
             exit()
         else:
-            ans.pop()
-            visit[current-1] = False
-            return
+            print('No')
+            exit()
 
 
 if __name__ == '__main__':
     N, M = map(int, input().split())
     nxts = dict()
-    back_nxts = dict()
     ans = deque()
-    visit = [False]*N
+    past = dict()
+    K = range(1, N+1)
+    s_K = set(K)
+    # 各頂点に入る辺の数
+    d = defaultdict(int)
     for _ in range(M):
         x, y = map(int, input().split())
         if x in nxts:
             nxts[x].append(y)
         else:
             nxts[x] = [y]
-        if y in back_nxts:
-            back_nxts[y].append(x)
-        else:
-            back_nxts[y] = [x]
+        d[y] += 1
+        if y in s_K:
+            s_K.remove(y)
 
     start_point = 0
-
+    len_s_K = len(s_K)
+    if len_s_K != 1:
+        print('No')
+        exit()
+    start_point = list(s_K)[0]
+    '''
     for i in range(1, N+1):
-        if i not in back_nxts:
+        if i not in d:
             start_point = i
             break
     else:
         print('No')
         exit()
-    visit[start_point-1] = True
+    '''
     ans.append(start_point)
-    check(start_point, 1)
-    print('No')
+    check(start_point)
 
