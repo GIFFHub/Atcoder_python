@@ -2,9 +2,7 @@
 
 if __name__ == '__main__':
     K = int(input())
-
     ans = [0]
-
     for _ in range(K):
         keta = 0
         if set(ans) == {9}:
