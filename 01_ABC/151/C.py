@@ -4,15 +4,24 @@ if __name__ == '__main__':
     N, M = map(int, input().split())
     d = defaultdict(int)
     s = set()
-    penalty = 0
+    Problem = [False]*N
+    penalty = [0]*N
+    penalty_num = 0
+    AC_num = 0
     for _ in range(M):
         p, S = input().split()
-        if S == 'AC':
-            s.add(p)
+        p = int(p)
+        if S == 'WA':
+            penalty[p-1] += 1
         else:
-            if p not in s:
-                penalty += 1
-    print(len(s), penalty)
+            if not Problem[p-1]:
+                Problem[p-1] = True
+                AC_num += 1
+                penalty_num += penalty[p-1]
+    print(AC_num, penalty_num)
+
+
+
 
 
 
