@@ -14,8 +14,9 @@ if __name__ == '__main__':
     
     '''
     ans = 0
+    k = 1
     for pro in product((0, 1), repeat=H+W-2):
-        if sum(pro) == 9:
+        if sum(pro) == H-1:
             x = 0
             y = 0
             S = set()
