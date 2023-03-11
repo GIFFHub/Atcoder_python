@@ -147,6 +147,14 @@ class UnionFind():
 
 if __name__ == '__main__':
     N, M = map(int, input().split())
+    uf = UnionFind(N)
+    roop_num = 0
     for _ in range(M):
         a, b, c, d = input().split()
-
+        a = int(a)-1
+        c = int(c)-1
+        if uf.same(a, c):
+            roop_num += 1
+        else:
+            uf.unite(a, c)
+    print(roop_num, uf.group_size()-roop_num-1)
