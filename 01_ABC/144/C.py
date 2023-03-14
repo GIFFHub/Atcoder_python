@@ -9,3 +9,11 @@ def make_divisors(n):
                 upper_divisors.append(n//i)
         i += 1
     return lower_divisors + upper_divisors[::-1]
+
+
+if __name__ == '__main__':
+    N = int(input())
+    T = make_divisors(N)
+    index = len(T)//2
+    goal = (T[index], T[-index-1])
+    print(goal[0]+goal[1]-2)
