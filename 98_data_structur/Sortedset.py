@@ -1,5 +1,6 @@
 # https://github.com/tatyam-prime/SortedSet
-
+import sys
+sys.setrecursionlimit(50000000)
 import math
 from bisect import bisect_left, bisect_right
 from typing import Generic, Iterable, Iterator, TypeVar, Union, List
