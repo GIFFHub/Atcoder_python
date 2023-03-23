@@ -133,3 +133,24 @@ class SortedMultiset(Generic[T]):
                 return ans + bisect_right(a, x)
             ans += len(a)
         return ans
+
+
+if __name__ == '__main__':
+    N, M = map(int, input().split())
+    A = list(map(int, input().split()))
+    S = SortedMultiset()
+
+    for a in A:
+        S.add(a)
+
+    while M > 0:
+        S.add(S[-1]//2)
+        S.discard(S[-1])
+        M -= 1
+
+    ans = 0
+    for x in S:
+        ans += x
+    print(ans)
+
+
