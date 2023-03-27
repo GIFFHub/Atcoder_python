@@ -7,12 +7,11 @@ if __name__ == '__main__':
     T = [0]*N
 
     for i in range(N, 0, -1):
-        x = i
         cnt = 1
         K = []
         while True:
-            x *= cnt
-            if x < N:
+            x = i * cnt
+            if x <= N:
                 K.append(x)
                 cnt += 1
             else:
