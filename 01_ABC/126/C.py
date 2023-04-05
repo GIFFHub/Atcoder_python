@@ -9,10 +9,15 @@ if __name__ == '__main__':
         point = x
         cnt = 0
         while point < K:
-            point *= x
+            point *= 2
             cnt += 1
 
         P = (1/N) * math.pow(1/2, cnt)
         ans += P
 
     print(ans)
+
+
+
+
+
