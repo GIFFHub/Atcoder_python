@@ -1,12 +1,13 @@
 from collections import defaultdict
 
 if __name__ == '__main__':
-    N, M = map(int, input().split())
+    N, M = input().split()
     A = list(map(int, input().split()))
     K = []
-    for _ in range(M):
-        B, C = input().split()
+    for j in range(M):
+        B, C = map(int, input().split())
         K.append([B, C])
+
     A.sort(reverse=True)
     d = defaultdict(int)
     for a in A:
