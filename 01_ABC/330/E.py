@@ -145,7 +145,7 @@ if __name__ == '__main__':
 
     for a in A:
         d[a] += 1
-    for i in range(0, 3*90000):
+    for i in range(0, 2*10**5+1):
         if i not in set_A:
             T.add(i)
 
