@@ -3,9 +3,9 @@ def binary_search(ok, ng):
         return ok
     mid = (ok + ng) // 2
     if check(mid):
-        binary_search(mid, ng)
+        return binary_search(mid, ng)
     else:
-        binary_search(ok, mid)
+        return binary_search(ok, mid)
 
 
 def check(t):
@@ -13,13 +13,13 @@ def check(t):
     cnt = 0
     tmp_sum = 0
     for i in range(N):
-        tmp_sum += A[i]
-        tmp += A[i]
+        tmp_sum += T[i]
+        tmp += T[i]
         if tmp >= t:
             tmp = 0
             cnt += 1
         if cnt >= K:
-            if sum_A - tmp_sum >= t:
+            if L - tmp_sum >= t:
                 return True
             else:
                 return False
@@ -30,7 +30,9 @@ if __name__ == '__main__':
     N, L = map(int, input().split())
     K = int(input())
     A = list(map(int, input().split()))
-    sum_A = sum(A)
+    T = [A[0]]
+    for i in range(1, N):
+        T.append(A[i]-A[i-1])
 
     ans = binary_search(0, L)
 
